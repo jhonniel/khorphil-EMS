@@ -3,7 +3,7 @@
 if(isset($_GET['edit'])){
               $id = $_GET['edit'];
               $edit_state = true;
-              $rec = mysqli_query($conn, "SELECT * FROM supplier WHERE dep_id ='$id'");
+              $rec = mysqli_query($conn, "SELECT * FROM department WHERE dep_id ='$id'");
               $record= mysqli_fetch_array($rec);
               $supname = $record['dep_category'];
               $status = $record['status'];
@@ -31,7 +31,7 @@ function alert($msg) {
   <nav>
   <a class="logo" href="Employee.php">KorPhil EMS</a>
   <ul>
-    <li><a class="" href="Employee.php">Home</a></li>
+    <li><a class="" href="Employee.php">Employee</a></li>
     <li><a class="active" href="#">Department</a></li>
     <li><a class="" href="Trash.php">Trash</a></li>
   </ul>
@@ -79,7 +79,7 @@ function alert($msg) {
                       $supname=$_POST['depcat'];
                       $status = $_POST['status'];
                       
-                      $sqlupdate="UPDATE supplier SET dep_category='$supname', status ='$status' WHERE dep_id ='$idupdate'";
+                      $sqlupdate="UPDATE department SET dep_category='$supname', status ='$status' WHERE dep_id ='$idupdate'";
                       mysqli_query($conn,$sqlupdate);
                       alert("Department successfully updated!");
                       header("refresh:1; url=Department.php?"); 
@@ -99,7 +99,7 @@ function alert($msg) {
 
       <?php 
       session_start();
-      $sql="SELECT * FROM supplier ORDER BY dep_category DESC";
+      $sql="SELECT * FROM department ORDER BY dep_category DESC";
 
       $result =$conn -> query($sql);
 

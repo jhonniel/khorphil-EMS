@@ -37,7 +37,7 @@ include 'db_connect.php';
 					$status = "Active";
 					
 					
-					$sql="INSERT INTO supplier(dep_category,status)
+					$sql="INSERT INTO department(dep_category,status)
 						VALUES('$depcat','$status')";
 						$query=mysqli_query($conn,$sql);
             		alert("Department successfully added!");
@@ -48,7 +48,7 @@ include 'db_connect.php';
 				  if(isset($_GET['del5'])) {
 				  	$id = $_GET['del5'];
 
-				  	mysqli_query($conn, "DELETE FROM supplier WHERE dep_id=$id");
+				  	mysqli_query($conn, "DELETE FROM department WHERE dep_id=$id");
 				  	alert("Department successfully deleted!");
 				  	header("refresh:1; url=Department.php?");
 

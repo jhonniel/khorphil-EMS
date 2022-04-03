@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Supplier</title>
+  <title>Department</title>
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Quicksand:wght@500&family=Roboto+Slab:wght@500&display=swap">
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
@@ -18,7 +18,7 @@
  <nav>
   <a class="logo" href="Employee.php">KorPhil EMS</a>
   <ul>
-    <li><a class="" href="Employee.php">Home</a></li>
+    <li><a class="" href="Employee.php">Employee</a></li>
     <li><a class="active" href="#">Department</a></li>
     <li><a class="" href="Trash.php">Trash</a></li>
   </ul>
@@ -40,7 +40,7 @@
 
         $Search = mysqli_real_escape_string($conn,$_POST['searching']);
 
-         $sql="SELECT * FROM supplier WHERE dep_category lIKE '%$Search%' OR status LIKE '%$Search%'";
+         $sql="SELECT * FROM department WHERE dep_category lIKE '%$Search%' OR status LIKE '%$Search%'";
          $result =$conn -> query($sql);
           
           ?>

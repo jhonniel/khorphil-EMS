@@ -20,7 +20,7 @@
   <nav>
     <a class="logo" href="Employee.php">KorPhil EMS</a>
     <ul>
-      <li><a class="" href="Employee.php">Home</a></li>
+      <li><a class="" href="Employee.php">Employee</a></li>
 	  <li><a href="Department.php">Department</a></li>
       <li><a href="Trash.php">Trash</a></li>
     </ul>

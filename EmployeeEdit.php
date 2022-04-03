@@ -40,7 +40,7 @@ function alert($msg) {
   <nav>
     <a class="logo" href="#">KorPhil EMS</a>
     <ul>
-      <li><a class="active" href="Employee.php">Home</a></li>
+      <li><a class="active" href="Employee.php">Employee</a></li>
       <li><a href="Department.php">Department</a></li>
       <li><a class="" href="Trash.php">Trash</a></li>
     </ul>
@@ -96,7 +96,7 @@ event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)"name="Empl
               <option><?php if(isset($record)) echo $record['Employee_Department'];?></option>
               <?php
               
-                  $records = mysqli_query($conn, "SELECT dep_category From supplier WHERE status='Active'");  
+                  $records = mysqli_query($conn, "SELECT dep_category From department WHERE status='Active'");  
 
                   while($data = mysqli_fetch_array($records))
                   {

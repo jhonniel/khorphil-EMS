@@ -20,7 +20,7 @@
   <nav>
     <a class="logo" href="#">KorPhil EMS</a>
     <ul>
-      <li><a class="" href="#">Home</a></li>
+      <li><a class="" href="#">Employee</a></li>
 	  <li><a href="Department.php">Department</a></li>
       <li><a href="Trash.php">Trash</a></li>
     </ul>
@@ -68,7 +68,7 @@
             <option disabled selected>Select</option>
               <?php
               
-                  $records = mysqli_query($conn, "SELECT dep_category From supplier WHERE status='Active'");  
+                  $records = mysqli_query($conn, "SELECT dep_category From department WHERE status='Active'");  
 
                   while($data = mysqli_fetch_array($records))
                   {
