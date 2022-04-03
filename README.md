@@ -1,6 +1,6 @@
 # khorphil-EMS
 
-A basic Employee Management System(EMS) where you can Add Create Update Delete, also with soft delete feature.
+A basic Employee Management System(EMS) where you can Add Create Update and Delete data, also added with soft delete feature.
 
 
 <i>Follow me around the web:</i><br>
