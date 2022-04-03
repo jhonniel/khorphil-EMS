@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 03, 2022 at 05:34 PM
+-- Generation Time: Apr 04, 2022 at 12:23 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.0
 
@@ -52,17 +52,20 @@ INSERT INTO `admin` (`Admin_ID`, `Admin_FirstName`, `Admin_LastName`, `Admin_Con
 --
 
 CREATE TABLE `department` (
-  `dep_id` int(50) NOT NULL,
-  `dep_category` varchar(50) NOT NULL
+  `dep_id` int(11) NOT NULL,
+  `dep_category` varchar(110) NOT NULL,
+  `status` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `department`
 --
 
-INSERT INTO `department` (`dep_id`, `dep_category`) VALUES
-(1, 'DIT'),
-(2, 'DAVET');
+INSERT INTO `department` (`dep_id`, `dep_category`, `status`) VALUES
+(1, 'DAVET', 'Active'),
+(13, 'DIT', 'Inactive'),
+(14, 'DWT', 'Active'),
+(15, 'VIP', 'Inactive');
 
 -- --------------------------------------------------------
 
@@ -88,11 +91,11 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`Employee_ID`, `Employee_Firstname`, `Employee_Lastname`, `Employee_Username`, `Employee_Email`, `Employee_Age`, `Employee_ContactNumber`, `Employee_Address`, `Employee_Department`, `Employee_Status`) VALUES
-(1, 'test', 'test', 'usser1', 'user@gmail.com', 22, 983735353, 'davao', 'DWT', 'Active'),
+(1, 'test', 'test', 'usser1', 'user@gmail.com', 22, 983735353, 'davao', 'DWT', 'Inactive'),
 (2, 'tests', 'tests', 'user2', 'user2@gmail.com', 22, 923445365, 'davao', 'DWT', 'Inactive'),
 (4, 'ygay', 'jhonniel', 'jhanniel', 'sample@gmail.com', 21, 2147483647, 'davao', 'DIT', 'Active'),
-(5, 'zuriel', 'polinar', 'zzzz1', 'zuriel@fmail.com', 9, 989678576, 'samal', 'DIT', 'Active'),
-(6, 'jhanniel', 'ygay', 'jjjjj2', 'jhanniel@gmail.com', 22, 93247923, 'davao', 'DAVET', 'Active');
+(5, 'zuriel', 'polinar', 'zzzz1', 'zuriel@fmail.com', 9, 989678576, 'samal', 'DIT', 'Inactive'),
+(6, 'jhanniel', 'ygay', 'jjjjj2', 'jhanniel@gmail.com', 22, 93247923, 'davao', 'DAVET', 'Inactive');
 
 -- --------------------------------------------------------
 
@@ -135,28 +138,6 @@ INSERT INTO `status` (`Status_ID`, `Current_Status`) VALUES
 (1, 'Active'),
 (2, 'Inactive');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `supplier`
---
-
-CREATE TABLE `supplier` (
-  `dep_id` int(11) NOT NULL,
-  `dep_category` varchar(110) NOT NULL,
-  `status` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `supplier`
---
-
-INSERT INTO `supplier` (`dep_id`, `dep_category`, `status`) VALUES
-(1, 'DAVET', 'Active'),
-(13, 'DIT', 'Active'),
-(14, 'DWT', 'Active'),
-(15, 'VIP', 'Inactive');
-
 --
 -- Indexes for dumped tables
 --
@@ -192,12 +173,6 @@ ALTER TABLE `status`
   ADD PRIMARY KEY (`Status_ID`);
 
 --
--- Indexes for table `supplier`
---
-ALTER TABLE `supplier`
-  ADD PRIMARY KEY (`dep_id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -205,7 +180,7 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-  MODIFY `dep_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `dep_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `employee`
@@ -218,12 +193,6 @@ ALTER TABLE `employee`
 --
 ALTER TABLE `ems_tbl`
   MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `supplier`
---
-ALTER TABLE `supplier`
-  MODIFY `dep_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
