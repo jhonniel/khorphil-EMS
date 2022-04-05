@@ -84,7 +84,7 @@ event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)"name="Empl
             <br><br>
 
             <p class="label-txt">Contact Number</p>
-            <input type="number" name="EmployeeContactNo" class="input" required value="<?php if(isset($record)) echo $record['Employee_ContactNumber'];?>">
+            <input type="text" name="EmployeeContactNo" class="input" onkeypress= "return (event.charCode >= 48 && event.charCode <= 57)" maxlength="15" required value="<?php if(isset($record)) echo $record['Employee_ContactNumber'];?>">
             <br><br>
 
             <p class="label-txt">Address</p>
