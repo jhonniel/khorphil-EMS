@@ -23,14 +23,12 @@ include 'db_connect.php';
 
 				  	mysqli_query($conn, "UPDATE employee SET Employee_Status='Active' WHERE Employee_ID=$id");
 				  	alert("Employee successfully restore!");
-				  	header("refresh:1; url=Employee.php?");
+				  	header("refresh:1; url=Trash.php?");
 				  }
 
 
 
-				//Department....  
-
-
+				//Department add
 				if(isset($_POST['add1'])){
 
 					$depcat=$_POST['depcat'];  
@@ -55,7 +53,7 @@ include 'db_connect.php';
 				  }
 				  
 				
-				//employee add
+				//Employee add
 				if(isset($_POST['empadd'])){
 
 					$fname=$_POST['EmployeeFirstName']; 

@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Trash bin</title>
+  <title>Employee</title>
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Quicksand:wght@500&family=Roboto+Slab:wght@500&display=swap">
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
@@ -22,20 +22,44 @@
     <ul>
       <li><a class="" href="Employee.php">Employee</a></li>
 	  <li><a href="Department.php">Department</a></li>
-      <li><a class="active" href="#">Trash</a></li>
+      <li><a href="Trash.php">Trash</a></li>
     </ul>
   </nav>
   
   <div class="bodyform">
 
     <div class="forsearch">
-      <form action="SearchEmployee.php" method="POST">
+      <form method="POST">
       <button name="search" type="submit"><i class="fa fa-search"></i></button>
       <input type="text" name="searching" placeholder="Search...">
       </form>
     </div>
 
-    
+ 
+
+    <?php
+    include ('db_connect.php');
+      if (isset($_POST['search'])) {
+        $Search = mysqli_real_escape_string($conn, $_POST['searching']);
+
+        $sql = "SELECT * FROM employee WHERE
+		Employee_Status ='Active' AND
+        Employee_ID LIKE '%Search%' AND
+        Employee_Firstname LIKE '$Search%' AND
+        Employee_Lastname LIKE '$Search%' AND
+        Employee_Username LIKE '$Search%' AND
+        Employee_Email LIKE '$Search%' AND
+        Employee_Age LIKE '$Search%' AND
+        Employee_ContactNumber LIKE '$Search%' AND
+        Employee_Address LIKE '$Search%' AND
+        Employee_Department LIKE '$Search%' AND
+        Employee_Status LIKE '$Search%'
+		 
+        ";
+        $result = $conn -> query($sql);
+
+    ?>
+
     <div class="right">
       <table>
         <thead>
@@ -47,68 +71,41 @@
               <th><b>Contact Number</b></th>
               <th><b>Address</b></th>
               <th><b>Department</b></th>
-              <th colspan="3"><b>Action</b></th>
+              <th colspan="2"><b>Action</b></th>
           </thead>
 
           
-           <tbody>
-			  <?php 
-				$sql="SELECT * FROM employee WHERE Employee_Status='Inactive' ORDER BY Employee_ID ASC";
-				$result =$conn -> query($sql);
-
-               if ($result -> num_rows == 0) {?> <td style="
-                font-family: 'Quicksand', sans-serif; color: gray; text-align: center;" colspan="11"> <?php echo 'No data available.'; ?></td>
+              <tbody>
+                <?php if ($result -> num_rows == 0) {?> <td style="
+                font-family: 'Quicksand', sans-serif; color: gray; text-align: center;" colspan="11"> <?php echo 'No records found.'; ?></td>
                 <?php }else{
-              while ( $row = $result -> fetch_assoc()) {
-              ?>
-                <tr>
-                  <td><?php echo $row['Employee_Firstname'];  ?></td>
-                  <td><?php echo $row['Employee_Lastname'];  ?></td>
-                  <td><?php echo $row['Employee_Username'];  ?></td>
-                  <td><?php echo $row['Employee_Email'];  ?></td>
-                  <td><?php echo $row['Employee_Age'];  ?></td>
-                  <td><?php echo $row['Employee_ContactNumber'];  ?></td>
-                  <td><?php echo $row['Employee_Address'];  ?></td>
-                  <td><?php echo $row['Employee_Department'];  ?></td>
-				  
-				  
-				  <td><a  href='Process.php?res=<?php echo $row['Employee_ID']; ?>' class="btn btn-primary a-btn-slide-text">
-                     <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
-                  <span>Restore</span></a></td> 
-                  
+                  while ($row = $result -> fetch_assoc()) {
+                  ?>
+                  <tr>
+                    <td><?php echo $row['Employee_Firstname'];  ?></td>
+                    <td><?php echo $row['Employee_Lastname'];  ?></td>
+                    <td><?php echo $row['Employee_Username'];  ?></td>
+                    <td><?php echo $row['Employee_Email'];  ?></td>
+                    <td><?php echo $row['Employee_Age'];  ?></td>
+                    <td><?php echo $row['Employee_ContactNumber'];  ?></td>
+                    <td><?php echo $row['Employee_Address'];  ?></td>
+                    <td><?php echo $row['Employee_Department'];  ?></td>
+					
+					<td><a  href='EmployeeEdit.php?edit=<?php echo $row['Employee_ID']; ?>' class="btn btn-primary a-btn-slide-text">
+                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                  <span>Edit</span></a></td> 
 
-                  <td><a href="Process.php?del=<?php echo $row['Employee_ID']; ?> " class="btn btn-primary a-btn-slide-text" style="background-color: #e8171f; border:none;">
-                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                  <span>Delete</span></a></td>
+                    <td><a href="Process.php?del=<?php echo $row['Employee_ID']; ?> " class="btn btn-primary a-btn-slide-text" style="background-color: #e8171f; border:none;">
+                           <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    <span>Delete</span></a></td>
                 </tr>
               </tbody>
+                
             <?php  }
+             }
           }?>
       </table>
     </div>
-	<?php
-	//employee add
-				if(isset($_POST['empadd'])){
-
-					$fname=$_POST['EmployeeFirstName']; 
-					$lname=$_POST['EmployeeLastName'];  
-					$user=$_POST['EmployeeUsername'];  
-					$email=$_POST['EmployeeEmail'];
-					$age=$_POST['EmployeeAge'];
-					$contactnumber=$_POST['EmployeeContactNo'];
-					$address=$_POST['EmployeeAddress'];
-					$department=$_POST['EmployeeDepartment'];
-					$status = "Active";      
-					
-
-					$sql="INSERT INTO employee (Employee_Firstname, Employee_Lastname, Employee_Username, Employee_Email, Employee_Age, Employee_ContactNumber, Employee_Address, Employee_Department, Employee_Status, Employee_Address, Employee_Status)
-						values('$fname','$lname','$user','$email','$age','$contactnumber','$address','$department','$status')";
-						$query=mysqli_query($conn,$sql);
-            		alert("Employee successfully added!");
-					header("refresh:1; url=Employee.php?"); 
-				}
-	
-	?>
   </div>
   </body>
 </html>
@@ -118,20 +115,6 @@
   background: #296d98;
   height: 80px;
   width: 100%;
-}
-button[name=empadd]{
-  width: 220px;
-  height: 40px;
-  margin-top: 20px;
-  border:none;
-  border-radius: 5px;
-  background-color: #418ac8;
-  color: white;
-  box-shadow: 0px 1px 0px 0px #171617;
-}
-
-button[name=empadd]:hover {
-  background-color: #296d98;
 }
 
 .bodyform{
@@ -244,14 +227,7 @@ input[type=text],input[type=number],input[type=email]{
   box-sizing: border-box;
 }
 
-select[name=category],select[name=sname]{
-  width: 220px;
-  height: 36px;
-  border: 1px solid #296d98;
-  border-radius: 5px;"
-}
-
-select[name=EmployeeDepartment]{
+select[name=EmployeeStatus]{
   width: 220px;
   height: 36px;
   border: 1px solid #296d98;
@@ -296,9 +272,8 @@ button[name=cancel]{
   .right { 
     margin-top: 30px;
     height: 460px;
-    width: 1050px;
-    border: 0px solid #296d98;
-    float: right;
+    border: 3px solid #296d98;
+	float: right;
     overflow-y: auto;
     overflow-x: auto;
   }

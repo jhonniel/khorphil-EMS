@@ -97,18 +97,17 @@ function alert($msg) {
           <th colspan="2"><b>Action</b></th>
       </thead>
 
-      <?php 
+      <tbody>
+		  <?php 
       session_start();
-      $sql="SELECT * FROM department ORDER BY dep_category DESC";
-
+      $sql="SELECT * FROM department ";
       $result =$conn -> query($sql);
 
-      if ($result -> num_rows > 0) {
-        while ( $row = $result -> fetch_assoc()) {
-
-          ?>
-
-          <tbody>
+      if ($result -> num_rows == 0) {?> <td style="
+                font-family: 'Quicksand', sans-serif; color: gray; text-align: center;" colspan="11"> <?php echo 'No departmet available.'; ?></td>
+                <?php }else{
+              while ( $row = $result -> fetch_assoc()) {
+              ?>
 
             <tr>
               <td><?php echo $row['dep_id'];  ?></td>

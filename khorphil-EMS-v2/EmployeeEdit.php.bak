@@ -149,6 +149,7 @@ event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)"name="Empl
     <div class="right">
       <table>
         <thead>
+              <th><b>ID</b></th>
               <th><b>First Name</b></th>
               <th><b>Last Name</b></th>
               <th><b>Username</b></th>
@@ -171,6 +172,7 @@ event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)"name="Empl
               while ( $row = $result -> fetch_assoc()) {
               ?>
                 <tr>
+                  <td><?php echo $row['Employee_ID'];  ?></td>
                   <td><?php echo $row['Employee_Firstname'];  ?></td>
                   <td><?php echo $row['Employee_Lastname'];  ?></td>
                   <td><?php echo $row['Employee_Username'];  ?></td>

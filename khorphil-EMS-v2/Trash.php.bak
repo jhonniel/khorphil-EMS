@@ -56,7 +56,7 @@
 				$sql="SELECT * FROM employee WHERE Employee_Status='Inactive' ORDER BY Employee_ID ASC";
 				$result =$conn -> query($sql);
 
-               if ($result -> num_rows == 0) {?> <td style="
+              <?php if ($result -> num_rows == 0) {?> <td style="
                 font-family: 'Quicksand', sans-serif; color: gray; text-align: center;" colspan="11"> <?php echo 'No data available.'; ?></td>
                 <?php }else{
               while ( $row = $result -> fetch_assoc()) {

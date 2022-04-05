@@ -7,7 +7,7 @@ include 'db_connect.php';
 
 				  	mysqli_query($conn, "DELETE FROM employee WHERE Employee_ID=$id");
 				  	alert("Employee successfully deleted!");
-				  	header("refresh:1; url=Trash.php?");
+				  	header("refresh:1; url=Employee.php?");
 				  }
 				  //Remove from Employee
 				  if(isset($_GET['rem'])) {
@@ -23,7 +23,7 @@ include 'db_connect.php';
 
 				  	mysqli_query($conn, "UPDATE employee SET Employee_Status='Active' WHERE Employee_ID=$id");
 				  	alert("Employee successfully restore!");
-				  	header("refresh:1; url=Employee.php?");
+				  	header("refresh:1; url=Trash.php?");
 				  }
 
 

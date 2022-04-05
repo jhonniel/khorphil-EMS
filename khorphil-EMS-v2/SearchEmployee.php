@@ -43,6 +43,7 @@
         $Search = mysqli_real_escape_string($conn, $_POST['searching']);
 
         $sql = "SELECT * FROM employee WHERE
+		Employee_Status ='Active' AND
         Employee_ID LIKE '%Search%' OR
         Employee_Firstname LIKE '$Search%' OR
         Employee_Lastname LIKE '$Search%' OR
@@ -53,6 +54,7 @@
         Employee_Address LIKE '$Search%' OR
         Employee_Department LIKE '$Search%' OR
         Employee_Status LIKE '$Search%'
+		 
         ";
         $result = $conn -> query($sql);
 

@@ -58,7 +58,7 @@
             <input type="number" name="EmployeeAge" class="input" required>
             <br><br>
             <p class="label-txt">Contact Number</p>
-            <input type="number" name="EmployeeContactNo" class="input" required>
+            <input type="text" name="EmployeeContactNo" class="input" onkeypress= "return (event.charCode >= 48 && event.charCode <= 57)" maxlength="15" required>
             <br><br>
             <p class="label-txt">Address</p>
             <input type="text" name="EmployeeAddress" class="input" required>
@@ -97,14 +97,17 @@
               <th colspan="2"><b>Action</b></th>
           </thead>
 
-          <?php 
+          
+              <tbody>
+			  <?php 
             $sql="SELECT * FROM employee WHERE Employee_Status='Active' ORDER BY Employee_ID ASC";
             $result =$conn -> query($sql);
 
-            if ($result -> num_rows > 0) {
+            if ($result -> num_rows == 0) {?> <td style="
+                font-family: 'Quicksand', sans-serif; color: gray; text-align: center;" colspan="11"> <?php echo 'No data available.'; ?></td>
+                <?php }else{
               while ( $row = $result -> fetch_assoc()) {
               ?>
-              <tbody>
                 <tr>
 
                   <td><?php echo $row['Employee_Firstname'];  ?></td>

@@ -1,16 +1,29 @@
  
 <?php include ('db_connect.php'); 
+if(isset($_GET['edit'])){
+              $id = $_GET['edit'];
+              $edit_state = true;
+              $rec = mysqli_query($conn, "SELECT * FROM department WHERE dep_id ='$id'");
+              $record= mysqli_fetch_array($rec);
+              $supname = $record['dep_category'];
+              $status = $record['status'];
+              $id = $record['dep_id'];
+            }  
+function alert($msg) {
+    echo "<script type='text/javascript'>alert('$msg');</script>";
+} 
+
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Department</title>
+  <title>Edit Department</title>
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Quicksand:wght@500&family=Roboto+Slab:wght@500&display=swap">
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     
 </head>
@@ -37,48 +50,76 @@
       <div class="inputs">
         <h2 style="text-align: center;margin-top: -15px; 
         ">Department</h2><br>
-        <form method="POST" action="Process.php">
-          <p class="label-txt">Department Category</p>
-            <input type="text" name='depcat' "class="input" required>
-            <br>
-            <button name='add1'>Add Department</button>
+        <form method="POST" action="DepartmentEdit.php">
+          <p class="label-txt">Department Name</p>
+             <input type="text" name="depcat" value="<?php if(isset($record)) echo $record['dep_category'];?>" required>
+            <br><br>
+          <p class="label-txt">Status</p>
+            <select name="status" required>
+                <option><?php if(isset($record)) echo $record['status'];?></option>
+              <?php
+              
+                  $records = mysqli_query($conn, "SELECT Current_Status From status ");  
+
+                  while($data = mysqli_fetch_array($records))
+                  {
+                      echo "<option value='". $data['Current_Status'] ."'>" .$data['Current_Status'] ."</option>";
+                  } 
+              ?>  </select>
+            <input type="text" name="depid" value="<?php echo $id;?>" style="display:none">
+           <br>
+           <br>     
+          <button type='submit' name="update" >Update</button>
+            <button class="submit" type="button" name="cancel"  onclick="window.location='Department.php?'">Cancel</button>
         </div>
         </form>
+        <?php 
+              if (isset($_POST['update'])){
+                      $idupdate=$_POST['depid'];
+                      $supname=$_POST['depcat'];
+                      $status = $_POST['status'];
+                      
+                      $sqlupdate="UPDATE department SET dep_category='$supname', status ='$status' WHERE dep_id ='$idupdate'";
+                      mysqli_query($conn,$sqlupdate);
+                      alert("Department successfully updated!");
+                      header("refresh:1; url=Department.php?"); 
+                     
+                    } ?> 
     </div>
+
         <div class="right">
 
 <table>     
     <thead>
           <th><b>ID</b></th>
-          <th><b>Department</b></th>
+          <th><b>Department Name</b></th>
           <th><b>Status</b></th>
           <th colspan="2"><b>Action</b></th>
       </thead>
 
-      
-
-          <tbody>
-		  <?php 
+      <?php 
       session_start();
-      $sql="SELECT * FROM department ";
+      $sql="SELECT * FROM department ORDER BY dep_category DESC";
+
       $result =$conn -> query($sql);
 
-      if ($result -> num_rows == 0) {?> <td style="
-                font-family: 'Quicksand', sans-serif; color: gray; text-align: center;" colspan="11"> <?php echo 'No departmet available.'; ?></td>
-                <?php }else{
-              while ( $row = $result -> fetch_assoc()) {
-              ?>
+      if ($result -> num_rows > 0) {
+        while ( $row = $result -> fetch_assoc()) {
+
+          ?>
+
+          <tbody>
 
             <tr>
               <td><?php echo $row['dep_id'];  ?></td>
               <td><?php echo $row['dep_category'];  ?></td>
               <td><?php echo $row['status'];  ?></td>
 
-              <td><a href='DepartmentEdit.php?edit=<?php echo $row['dep_id']; ?>'class="btn btn-primary a-btn-slide-text">
+              <td><a href='Department.php?edit=<?php echo $row['dep_id']; ?>'class="btn btn-primary a-btn-slide-text" disabled>
                   <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                   <span>Edit</span></a></td>
 
-              <td><a href="Process.php?del5=<?php echo $row['dep_id']; ?> "class="btn btn-primary a-btn-slide-text" style="background-color: #e8171f; border:none;">
+              <td><a href="Process.php?del5=<?php echo $row['dep_id']; ?> "class="btn btn-primary a-btn-slide-text" style="background-color: #e8171f; border:none;" disabled>
                      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                   <span>Delete</span></a></td>
                     
@@ -89,7 +130,7 @@
       }?>
     </table>
       </div>
-  </div>
+    </div>
 </body>
 </html>
 
@@ -115,20 +156,24 @@ a.logo{
   padding: 0 100px;
   font-weight: bold;
 }
+
 a.logo:hover{
   cursor: pointer;
   background-color: #296d98;
 }
+
 nav ul{
   float: right;
   margin-right: 20px;
 }
+
 nav ul li{
   font-family: 'Roboto Slab', serif;
   display: inline-block;
   line-height: 80px;
   margin: 0 10px;
 }
+
 nav ul li a{
   color: white;
   font-size: 17px;
@@ -209,26 +254,52 @@ input[type=text],input[type=number]{
   box-sizing: border-box;
 }
 
-button[name=add1]{
+select[name=status]{
+  width: 220px;
+  height: 36px;
+  border: 1px solid #296d98;
+  border-radius: 5px;"
+}
+
+button[name=update]{
   width: 220px;
   height: 40px;
-  margin-top: 80px;
+  margin-top: 20px;
   border:none;
   border-radius: 5px;
   background-color: #418ac8;
   color: white;
   box-shadow: 0px 1px 0px 0px #171617;
 }
-button[name=add1]:hover {
+
+button[name=update]:hover {
   background-color: #296d98;
 }
+
+button[name=cancel]{
+  width: 220px;
+  height: 40px;
+  border: none;
+  color: white;
+  margin-top: 10px;
+  padding: 5px 5px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: #d1403f;
+  box-shadow: 0px 1px 0px 0px #171617;
+}
+
+button[name=cancel]:hover {
+  background-color: #a82928;
+}
+
   .left {
     display: block;
     width: 315px;
-    height: 330px;
+    height: 410px;
     margin-top: 20px;
     float: left;
-	overflow-y: hidden;
+    overflow-y: hidden;
     overflow-x: hidden;
     box-shadow: 1px 1px 5px -1px #296d98;
   } 
@@ -244,12 +315,11 @@ button[name=add1]:hover {
   }
 
   .inputs {
-      height: 530px;
+      padding: 40px;
       font-size: 15px;
-      padding: 50px;
       background-color: #a9cfe7;
-      box-shadow: 1px 1px 5px -1px #296d98;
       font-family: 'Quicksand', sans-serif;
+      box-shadow: 1px 1px 5px -1px #296d98;
   }  
 }
 
