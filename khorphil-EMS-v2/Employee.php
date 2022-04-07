@@ -43,10 +43,10 @@
               ">Employee</h2><br>
           
             <p class="label-txt">First Name</p>
-            <input type="text" name="EmployeeFirstName" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)"class="input" requiredd>
+            <input type="text" name="EmployeeFirstName" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode == 32)"class="input" requiredd>
             <br><br>
             <p class="label-txt">Last Name</p>
-            <input type="text" name="EmployeeLastName" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)"class="input" required>
+            <input type="text" name="EmployeeLastName" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode == 32)"class="input" required>
             <br><br>
             <p class="label-txt">Username</p>
             <input type="text" name="EmployeeUsername" class="input" required>
@@ -58,7 +58,7 @@
             <input type="number" name="EmployeeAge" class="input" required>
             <br><br>
             <p class="label-txt">Contact Number</p>
-            <input type="text" name="EmployeeContactNo" class="input" onkeypress= "return (event.charCode >= 48 && event.charCode <= 57)" maxlength="15" required>
+            <input type="text" name="EmployeeContactNo" class="input" onkeypress= "return (event.charCode >= 48 && event.charCode <= 57)" maxlength="14" required>
             <br><br>
             <p class="label-txt">Address</p>
             <input type="text" name="EmployeeAddress" class="input" required>
